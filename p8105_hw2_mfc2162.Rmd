@@ -69,10 +69,25 @@ pols_month = read_csv("./data/pols-month.csv") %>%
               mutate(president = "gop") %>%
               select(-day)
 
-for (row in pols_month) {
+# Change president to "dem" if prez_dem = 1
+for (row in 1:nrow(pols_month)) {
   if (pols_month[row, "prez_dem"] == 1) {
     pols_month[row, "president"] = "dem"
   }
 }
+
+# Remove prez_gop and prez_dem
+pols_month = select(pols_month, -prez_gop, -prez_dem)
+
+```
+
+### Read and clean snp
+
+```{r}
+
+snp = read_csv("./data/snp.csv") %>%
+                separate(date, into = c("month", "day", "year")) %>%
+                mutate(month = month.name[as.integer(month)]) %>%
+                select(year, month, close)
 
 ```
