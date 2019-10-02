@@ -165,3 +165,17 @@ for (row in 1:nrow(baby_names)) {
 baby_names = distinct(baby_names)
 
 ```
+
+### Olivia table
+
+```{r}
+
+olivia_table = baby_names %>% filter(childs_first_name == "Olivia") %>%
+                              select(-childs_first_name, -gender, -count) %>%
+                              pivot_wider(
+                                names_from = "year_of_birth",
+                                values_from = "rank")
+
+olivia_table
+
+```
