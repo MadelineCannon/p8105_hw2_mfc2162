@@ -16,8 +16,8 @@ library(readxl)
 
 ```{r}
 mr_trash_wheel =
-  read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = 1,
-             range = "A2:N336") %>%
+  read_excel("./data/Trash-Wheel-Collection-Totals-8-6-19.xlsx", sheet = 1,
+             range = "A2:N406") %>%
               janitor::clean_names() %>%
               drop_na(dumpster) %>%
               mutate(sports_balls = as.integer(round(sports_balls, digits = 0)))
@@ -136,3 +136,32 @@ are 3 variables: year, month, and the S&P stock market index.
 2015. There are 3 variables: year, month, and the unemployment rate.
 'fivethirtyeight_data' has 822 observations (dates between 1947 and 2015) and 11
 variables, and is the result of merging the three datasets.
+
+## Problem 3
+
+### Read and clean baby names data
+
+```{r}
+
+baby_names = read_csv("./data/Popular_Baby_Names.csv") %>%
+                        janitor::clean_names() %>%
+                        mutate(childs_first_name =
+                                 str_to_title(childs_first_name))
+
+# Make names of ethnicities consistent
+for (row in 1:nrow(baby_names)) {
+  if (baby_names[row, "ethnicity"] == "ASIAN AND PACI") {
+    baby_names[row, "ethnicity"] = "ASIAN AND PACIFIC ISLANDER"
+  }
+  if (baby_names[row, "ethnicity"] == "BLACK NON HISP") {
+    baby_names[row, "ethnicity"] = "BLACK NON HISPANIC"
+  }
+  if (baby_names[row, "ethnicity"] == "WHITE NON HISP") {
+    baby_names[row, "ethnicity"] = "WHITE NON HISPANIC"
+  }
+}
+
+# Remove duplicates
+baby_names = distinct(baby_names)
+
+```
