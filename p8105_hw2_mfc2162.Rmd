@@ -21,6 +21,9 @@ mr_trash_wheel =
               janitor::clean_names() %>%
               drop_na(dumpster) %>%
               mutate(sports_balls = as.integer(round(sports_balls, digits = 0)))
+
+mr_trash_wheel
+
 ```
 
 
@@ -38,6 +41,7 @@ precip_2018 = read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx",
                           janitor::clean_names() %>%
                           mutate(year = 2018) %>%
                           select(month, year, total)
+
 ```
 
 
@@ -46,6 +50,9 @@ precip_2018 = read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx",
 ```{r}
 precip = bind_rows(precip_2017, precip_2018) %>%
                     mutate(month = month.name[month])
+
+precip
+
 ```
 
 
@@ -82,6 +89,8 @@ for (row in 1:nrow(pols)) {
 # Remove prez_gop and prez_dem
 pols = select(pols, -prez_gop, -prez_dem)
 
+pols
+
 ```
 
 
@@ -93,6 +102,8 @@ snp = read_csv("./data/snp.csv") %>%
                 separate(date, into = c("month", "day", "year")) %>%
                 mutate(month = month.name[as.integer(month)]) %>%
                 select(year, month, close)
+
+snp
 
 ```
 
@@ -110,6 +121,7 @@ unemployment = read_csv("./data/unemployment.csv") %>%
                         janitor::clean_names() %>%
                         mutate(year = as.character(year))
 
+unemployment
 
 ```
 
@@ -122,6 +134,8 @@ fivethirtyeight_data = left_join(pols, snp, by = c("year", "month"))
 
 fivethirtyeight_data =
   left_join(fivethirtyeight_data, unemployment, by = c("year", "month"))
+
+fivethirtyeight_data
 
 ```
 
@@ -163,6 +177,8 @@ for (row in 1:nrow(baby_names)) {
 
 # Remove duplicates
 baby_names = distinct(baby_names)
+
+baby_names
 
 ```
 
