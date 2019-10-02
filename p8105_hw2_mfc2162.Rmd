@@ -166,6 +166,7 @@ baby_names = distinct(baby_names)
 
 ```
 
+
 ### Olivia table
 
 ```{r}
@@ -177,5 +178,23 @@ olivia_table = baby_names %>% filter(childs_first_name == "Olivia") %>%
                                 values_from = "rank")
 
 olivia_table
+
+```
+
+
+### Table for most popular male names
+
+```{r}
+
+male_names = baby_names %>% filter(gender == "MALE") %>%
+                            filter(rank == 1) %>%
+                            select(
+                              year_of_birth, ethnicity, childs_first_name) %>%
+                            pivot_wider(
+                              names_from = "year_of_birth",
+                              values_from = "childs_first_name"
+                            )
+
+male_names
 
 ```
