@@ -224,7 +224,7 @@ male_white_2016 = baby_names %>% filter(gender == "MALE") %>%
                                   filter(ethnicity == "WHITE NON HISPANIC") %>%
                                   filter(year_of_birth == 2016)
 
-ggplot(male_white_2016, aes(x = rank, y = count)) + 
-  geom_point()
+names_plot = ggplot(male_white_2016, aes(x = rank, y = count)) + geom_point()
 
+names_plot
 ```
